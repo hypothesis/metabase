@@ -20,13 +20,13 @@ node {
 onlyOnMaster {
     milestone()
     stage('qa deploy') {
-        deployApp(image: img, app: 'metabase', env: 'qa')
+        deployApp(image: img, app: 'metabase', env: 'qa', region: 'us-west-1')
     }
 
     milestone()
     stage('prod deploy') {
         input(message: "Deploy to prod?")
         milestone()
-        deployApp(image: img, app: 'metabase', env: 'prod')
+        deployApp(image: img, app: 'metabase', env: 'prod', region: 'us-west-1')
     }
 }
