@@ -10,14 +10,14 @@ node {
         img = buildApp(name: 'hypothesis/metabase')
     }
 
-    onlyOnMaster {
+    onlyOnMain {
         stage('release') {
             releaseApp(image: img)
         }
     }
 }
 
-onlyOnMaster {
+onlyOnMain {
     milestone()
     stage('qa deploy') {
         deployApp(image: img, app: 'metabase', env: 'qa', region: 'us-west-1')
