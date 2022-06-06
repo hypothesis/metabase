@@ -10,14 +10,14 @@ node {
         img = buildApp(name: 'hypothesis/metabase')
     }
 
-    onlyOnMaster {
+    onlyOnMain {
         stage('release') {
             releaseApp(image: img)
         }
     }
 }
 
-onlyOnMaster {
+onlyOnMain {
     milestone()
     stage('qa deploy') {
         deployApp(image: img, app: 'metabase', env: 'qa', region: 'us-west-1')
@@ -32,12 +32,12 @@ onlyOnMaster {
     stage("prod Deploy") {
         parallel(
             us_metabase: {
-                deployApp(image: image, app: "metabase", env: "prod", region: "us-west-1")
+                deployApp(image: img, app: "metabase", env: "prod", region: "us-west-1")
             },
             ca_metabase: {
                 // Workaround to ensure all parallel builds happen. See https://hypothes-is.slack.com/archives/CR3E3S7K8/p1625041642057400
                 sleep 2
-                deployApp(image: image, app: "metabase", env: "prod", region: "ca-central-1")
+                deployApp(image: img, app: "metabase-ca", env: "prod", region: "ca-central-1")
             }
         )
     }
