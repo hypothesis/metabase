@@ -36,8 +36,8 @@ onlyOnMain {
             },
             ca_metabase: {
                 // Workaround to ensure all parallel builds happen. See https://hypothes-is.slack.com/archives/CR3E3S7K8/p1625041642057400
-                sleep 12
-                deployApp(image: img, app: "metabase", env: "prod", region: "ca-central-1")
+                sleep 2
+                deployApp(image: img, app: "metabase-ca", env: "prod", region: "ca-central-1")
             }
         )
     }
